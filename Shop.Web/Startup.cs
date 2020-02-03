@@ -1,21 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Shop.Web.Data;
-using Shop.Web.Data.Entities;
-
-namespace Shop.Web
+﻿namespace Shop.Web
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.HttpsPolicy;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Data.Entities;
+    using Helper;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -47,8 +47,9 @@ namespace Shop.Web
             });
 
             services.AddTransient<SeedDb>();
-
             services.AddScoped<IRepositoy, Repositoy>();
+            services.AddScoped<IUserHelper, UserHelper>();
+
             //services.AddScoped<IRepositoy, MockRepository>();
             services.Configure<CookiePolicyOptions>(options =>
             {
