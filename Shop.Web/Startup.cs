@@ -1,4 +1,5 @@
-﻿namespace Shop.Web
+﻿
+namespace Shop.Web
 {
     using System;
     using System.Collections.Generic;
@@ -13,6 +14,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Data;
     using Data.Entities;
     using Helper;
 
@@ -41,14 +43,16 @@
 
              })
                 .AddEntityFrameworkStores<DataContext>();
+            
             services.AddDbContext<DataContext>(cfg =>
                 {
                 cfg.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
             });
 
             services.AddTransient<SeedDb>();
+
             services.AddScoped<IRepositoy, Repositoy>();
-            services.AddScoped<IUserHelper, UserHelper>();
+            services.AddScoped<UserHelper, UserHelper>();
 
             //services.AddScoped<IRepositoy, MockRepository>();
             services.Configure<CookiePolicyOptions>(options =>

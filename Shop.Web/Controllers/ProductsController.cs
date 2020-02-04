@@ -7,16 +7,20 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
-    using Shop.Web.Data;
-    using Shop.Web.Data.Entities;
+    using Data;
+    using Data.Entities;
+    using Helper;
 
     public class ProductsController : Controller
     {
+        private readonly IUserHelper userHelper;
+
         public IRepositoy Repositoy { get; }
 
-        public ProductsController(IRepositoy repositoy)
+        public ProductsController(IRepositoy repositoy, IUserHelper userHelper)
         {
             Repositoy = repositoy;
+            this.userHelper = userHelper;
         }
 
         // GET: Products
@@ -64,6 +68,9 @@
              {
                 //    _context.Add(product);
                 //    await _context.SaveChangesAsync();
+                
+                //TODO:Cambiar por usuario login
+                product.User = await this.userHelper.GetUserbyEmailAsync("jcaraballo74@hotmail.com");
                 this.Repositoy.AddProducts(product);
                 await this.Repositoy.SaveAllAsync();
                 return RedirectToAction(nameof(Index));
@@ -102,6 +109,8 @@
                 {
                     //_context.Update(product);
                     //await _context.SaveChangesAsync();
+                    //TODO: cAMBIAR UUSAURO
+                    product.User = await this.userHelper.GetUserbyEmailAsync("jcaraballo74@hotmail.com");
                     this.Repositoy.UpdateProducts(product);
                     await this.Repositoy.SaveAllAsync();
                 }
