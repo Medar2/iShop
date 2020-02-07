@@ -39,14 +39,15 @@
 
                 };
 
-            }
-            //var result = await this.userManager.CreateAsync(user, "123456");
-            var result = await this.userHelper.AddUserAsync(user, "123456");
-            if (result!= IdentityResult.Success)
-            {
-                throw new InvalidOperationException("Could not create the user in seeder");
-            }
+                //var result = await this.userManager.CreateAsync(user, "123456");
+                var result = await this.userHelper.AddUserAsync(user, "123456");
 
+                if (result != IdentityResult.Success)
+                {
+                    throw new InvalidOperationException("Could not create the user in seeder");
+                }
+            }
+            
             
             if (!this.context.Products.Any())
             {
@@ -66,7 +67,7 @@
                 Price = this.random.Next(1000),
                 IsAvailabe = true,
                 Stock = this.random.Next(100),
-                User = user
+                //User = user
 
 
             }) ;

@@ -44,7 +44,7 @@ namespace Shop.Web.Data
         }
         public bool ProductExists(int id)
         {
-            return this.context.Products.Any(p => p.id == id);
+            return this.context.Products.Any(p => p.Id == id);
         }
 
 

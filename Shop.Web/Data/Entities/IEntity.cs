@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace Shop.Web.Data.Entities
 {
-    public class IEntity
+    public interface IEntity
     {
-        int Id { get; set; }
-        public bool WasDelete { get; set; }
+        int Id { get; set; }                
     }
 }

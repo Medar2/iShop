@@ -13,13 +13,15 @@
 
     public class ProductsController : Controller
     {
+        private readonly IProductRepository productRepository;
         private readonly IUserHelper userHelper;
 
-        public IRepositoy Repositoy { get; }
+        //public IRepositoy Repositoy { get; }
 
-        public ProductsController(IRepositoy repositoy, IUserHelper userHelper)
+        public ProductsController(IProductRepository productRepository, IUserHelper userHelper)
         {
-            Repositoy = repositoy;
+            this.productRepository = productRepository;
+            //Repositoy = repositoy;
             this.userHelper = userHelper;
         }
 
@@ -27,12 +29,12 @@
         public async Task<IActionResult> Index()
         {
             //return View(await _context.Products.ToListAsync());
-            return View(this.Repositoy.GetProducts());
+            return View(this.productRepository.GetAll());
         }
 
         // GET: Products/Details/5
         //public async Task<IActionResult> Details(int? id)
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -40,8 +42,8 @@
             }
 
             //var product = await _context.Products
-            var product = this.Repositoy.GetProduct(id.Value);
-                //.FirstOrDefaultAsync(m => m.id == id);;
+            var product = await this.productRepository.GetByIdAsync(id.Value);
+                //.FirstOrDefaultAsync(m => m.id == id);
 
             if (product == null) 
             {
@@ -68,18 +70,17 @@
              {
                 //    _context.Add(product);
                 //    await _context.SaveChangesAsync();
-                
+
                 //TODO:Cambiar por usuario login
                 product.User = await this.userHelper.GetUserbyEmailAsync("jcaraballo74@hotmail.com");
-                this.Repositoy.AddProducts(product);
-                await this.Repositoy.SaveAllAsync();
+                await this.productRepository.CreateAsync(product);
                 return RedirectToAction(nameof(Index));
             }
             return View(product);
         }
 
         // GET: Products/Edit/5
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -87,7 +88,7 @@
             }
 
             //var product = await _context.Products.FindAsync(id);
-            var product = this.Repositoy.GetProduct(id.Value);
+            var product = await this.productRepository.GetByIdAsync(id.Value);
             if (product == null)
             {
                 return NotFound();
@@ -111,12 +112,11 @@
                     //await _context.SaveChangesAsync();
                     //TODO: cAMBIAR UUSAURO
                     product.User = await this.userHelper.GetUserbyEmailAsync("jcaraballo74@hotmail.com");
-                    this.Repositoy.UpdateProducts(product);
-                    await this.Repositoy.SaveAllAsync();
+                    await this.productRepository.UpdateAsync(product);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!this.Repositoy.ProductExists(product.id))
+                    if (!await productRepository.ExistsAsync(product.Id))
                     {
                         return NotFound();
                     }
@@ -131,16 +131,14 @@
         }
 
         // GET: Products/Delete/5
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            //var product = await _context.Products
-            //    .FirstOrDefaultAsync(m => m.id == id);
-            var product = this.Repositoy.GetProduct(id.Value);
+            var product = await this.productRepository.GetByIdAsync(id.Value);
             if (product == null)
             {
                 return NotFound();
@@ -154,14 +152,11 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            //var product = await _context.Products.FindAsync(id);
-            //_context.Products.Remove(product);
-            var product = this.Repositoy.GetProduct(id);
-            this.Repositoy.RemoveProducts(product);
-            await this.Repositoy.SaveAllAsync();
-            //await _context.SaveChangesAsync();
+            var product = await this.productRepository.GetByIdAsync(id);
+            await this.productRepository.DeleteAsync(product);
             return RedirectToAction(nameof(Index));
         }
+
 
         //private bool ProductExists(int id)
         //{

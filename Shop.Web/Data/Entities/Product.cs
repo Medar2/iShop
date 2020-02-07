@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Shop.Web.Data.Entities
 {
-    public class Product
+    public class Product : IEntity
     {
 
-        public int id { get; set; }
+        public int Id { get; set; }
+
         [MaxLength(50, ErrorMessage= "Este campo no puede contener mas de 50 caracteres")]
         [Required]
         public string Name { get; set; }
