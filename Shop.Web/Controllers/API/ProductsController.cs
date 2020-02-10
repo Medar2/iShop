@@ -12,7 +12,6 @@
 		{
 			this.productRepository = productRepository;
 		}
-
 		[HttpGet]
 		public IActionResult GetProducts()
 		{
