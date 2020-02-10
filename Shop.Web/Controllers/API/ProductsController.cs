@@ -7,7 +7,10 @@
 	public class ProductsController : Controller
 	{
 		private readonly IProductRepository productRepository;
-
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="productRepository"></param>
 		public ProductsController(IProductRepository productRepository)
 		{
 			this.productRepository = productRepository;
