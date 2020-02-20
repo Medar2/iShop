@@ -10,6 +10,8 @@
     using Data;
     using Data.Entities;
     using Helper;
+    using System.IO;
+    using Shop.Web.Models;
 
     public class ProductsController : Controller
     {
@@ -64,7 +66,7 @@
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> Create(Product product)
+        public async Task<IActionResult> Create(ProductViewModel view)
         {
             if (ModelState.IsValid)
              {
@@ -72,11 +74,44 @@
                 //    await _context.SaveChangesAsync();
 
                 //TODO:Cambiar por usuario login
+                var path = string.Empty;
+
+                if (view.ImageFile != null && view.ImageFile.Length > 0)
+                {
+                    path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\Products", view.ImageFile.FileName);
+
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        await view.ImageFile.CopyToAsync(stream);
+                    }
+
+                    path = $"~/images/Products/{view.ImageFile.FileName}";
+                }
+                var product = this.ToProduct(view, path);
+
+
                 product.User = await this.userHelper.GetUserbyEmailAsync("jcaraballo74@hotmail.com");
                 await this.productRepository.CreateAsync(product);
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(view);
+        }
+
+        private Product ToProduct(ProductViewModel view, string path)
+        {
+            return new Product
+            {
+                Id = view.Id,
+                ImagenUrl = path,
+                IsAvailabe = view.IsAvailabe,
+                LastPurchase = view.LastPurchase,
+                LastSale = view.LastSale,
+                Name = view.Name,
+                Price = view.Price,
+                Stock = view.Stock,
+                User = view.User
+            };
+
         }
 
         // GET: Products/Edit/5
@@ -93,7 +128,25 @@
             {
                 return NotFound();
             }
+            var view = this.ToProducViewModel(product);
+
             return View(product);
+        }
+
+        private ProductViewModel ToProducViewModel(Product product)
+        {
+            return new ProductViewModel
+            {
+                Id = product.Id,
+                ImagenUrl = product.ImagenUrl,
+                IsAvailabe = product.IsAvailabe,
+                LastPurchase = product.LastPurchase,
+                LastSale = product.LastSale,
+                Name = product.Name,
+                Price = product.Price,
+                Stock = product.Stock,
+                User = product.User
+            };
         }
 
         // POST: Products/Edit/5
@@ -101,22 +154,43 @@
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Product product)
+        public async Task<IActionResult> Edit(ProductViewModel view)
         {
            
             if (ModelState.IsValid)
             {
                 try
                 {
+                    var path = view.ImagenUrl;
+
+                    if (view.ImageFile != null && view.ImageFile.Length > 0)
+                    {
+                        path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images\\Products", view.ImageFile.FileName);
+
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            await view.ImageFile.CopyToAsync(stream);
+                        }
+
+                        path = $"~/images/Products/{view.ImageFile.FileName}";
+                    }
+
+
                     //_context.Update(product);
                     //await _context.SaveChangesAsync();
                     //TODO: cAMBIAR UUSAURO
-                    product.User = await this.userHelper.GetUserbyEmailAsync("jcaraballo74@hotmail.com");
+                    view.User = await this.userHelper.GetUserbyEmailAsync("jcaraballo74@hotmail.com");
+
+                    //product.User = await this.userHelper.GetUserbyEmailAsync("jcaraballo74@hotmail.com");
+                    var product = this.ToProduct(view, path);
+                    await this.productRepository.UpdateAsync(product);
+
+                    
                     await this.productRepository.UpdateAsync(product);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!await productRepository.ExistsAsync(product.Id))
+                    if (!await productRepository.ExistsAsync(view.Id))
                     {
                         return NotFound();
                     }
@@ -127,7 +201,7 @@
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(view);
         }
 
         // GET: Products/Delete/5
