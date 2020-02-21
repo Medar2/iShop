@@ -130,7 +130,7 @@
             }
             var view = this.ToProducViewModel(product);
 
-            return View(product);
+            return View(view);
         }
 
         private ProductViewModel ToProducViewModel(Product product)
