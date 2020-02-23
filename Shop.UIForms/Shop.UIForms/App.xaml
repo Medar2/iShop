@@ -4,8 +4,13 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:Infra="clr-namespace:Shop.UIForms.Infrasctruture"
              x:Class="Shop.UIForms.App">
     <Application.Resources>
-
+        <ResourceDictionary>
+            <!--Locator-->
+            <Infra:IntanceLocator x:Key="Locator"/>
+            
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
