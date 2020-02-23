@@ -31,7 +31,8 @@
         public async Task<IActionResult> Index()
         {
             //return View(await _context.Products.ToListAsync());
-            return View(this.productRepository.GetAll());
+            return View(this.productRepository.GetAll().OrderBy(p=> p.Name));
+
         }
 
         // GET: Products/Details/5

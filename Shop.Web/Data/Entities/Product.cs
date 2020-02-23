@@ -34,9 +34,18 @@ namespace Shop.Web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = false)]
         public double Stock { get; set; }
 
-        
         public User User { get; set; } //Relacion de Uno a varios
 
+        public string ImageFullPath   {
+            get
+            {
+                if (string.IsNullOrEmpty(this.ImagenUrl))
+                {
+                    return null;
+                }
+                return $"https://devshop.azurewebsites.net{this.ImagenUrl.Substring(1)}";
+            }
+                }
         //Hacer esto cada vez que haya un cambio en la BD
         //agregar migracion
         //Add-migration NombeMigracion

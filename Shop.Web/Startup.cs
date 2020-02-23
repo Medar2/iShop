@@ -46,7 +46,7 @@ namespace Shop.Web
             
             services.AddDbContext<DataContext>(cfg =>
                 {
-                cfg.UseSqlServer(this.Configuration.GetConnectionString("DevConnection"));
+                cfg.UseSqlServer(this.Configuration.GetConnectionString("ShopConnection"));
             });
 
             services.AddTransient<SeedDb>();
