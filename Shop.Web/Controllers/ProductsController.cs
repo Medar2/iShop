@@ -12,7 +12,9 @@
     using Helper;
     using System.IO;
     using Shop.Web.Models;
+    using Microsoft.AspNetCore.Authorization;
 
+    [Authorize]
     public class ProductsController : Controller
     {
         private readonly IProductRepository productRepository;
@@ -28,6 +30,7 @@
         }
 
         // GET: Products
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             //return View(await _context.Products.ToListAsync());
