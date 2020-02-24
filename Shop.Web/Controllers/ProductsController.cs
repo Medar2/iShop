@@ -102,7 +102,7 @@
                 var product = this.ToProduct(view, path);
 
 
-                product.User = await this.userHelper.GetUserbyEmailAsync("jcaraballo74@hotmail.com");
+                product.User = await this.userHelper.GetUserbyEmailAsync(User.Identity.Name);
                 await this.productRepository.CreateAsync(product);
                 return RedirectToAction(nameof(Index));
             }
@@ -196,8 +196,8 @@
 
                     //_context.Update(product);
                     //await _context.SaveChangesAsync();
-                    //TODO: cAMBIAR UUSAURO
-                    view.User = await this.userHelper.GetUserbyEmailAsync("jcaraballo74@hotmail.com");
+                   
+                    view.User = await this.userHelper.GetUserbyEmailAsync(User.Identity.Name);
 
                     //product.User = await this.userHelper.GetUserbyEmailAsync("jcaraballo74@hotmail.com");
                     var product = this.ToProduct(view, path);
