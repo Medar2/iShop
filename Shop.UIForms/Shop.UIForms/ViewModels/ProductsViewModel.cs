@@ -12,11 +12,20 @@ namespace Shop.UIForms.ViewModels
     {
         private ApiService apiService;
         private ObservableCollection<Product> products;
+        private bool isRefreshing;
 
         public ObservableCollection<Product> Products
         {
             get { return this.products; }
             set { this.SetValue(ref this.products, value); }
+        }
+
+
+        //Activiti indicator
+        public bool IsRefreshing
+        {
+            get { return this.isRefreshing; }
+            set { this.SetValue(ref isRefreshing, value); }
         }
 
         public ProductsViewModel()
@@ -27,10 +36,12 @@ namespace Shop.UIForms.ViewModels
 
         private async void LoadProducts()
         {
+            IsRefreshing = true;
             var response = await this.apiService.GetListAsync<Product>(
                 "https://devshop.azurewebsites.net",
                 "/api",
                 "/Products");
+            IsRefreshing = false;
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert(

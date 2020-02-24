@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
-             Title="Products"
+             Title="Lista de Articulos"
              x:Class="Shop.UIForms.Views.ProductsPage">
     <ContentPage.Content>
         <StackLayout 
@@ -14,8 +14,43 @@
             <!--este product es un ObservetorCollection-->
             <ListView 
                 ItemsSource="{Binding Products}" 
-                HasUnevenRows="True"> 
-                    
+                HasUnevenRows="True"
+                IsRefreshing="{Binding IsRefreshing}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                	Grid.Column="0"
+                                	Source="{Binding ImageFullPath}"
+                                	WidthRequest="100">
+                                </Image>
+                                <StackLayout
+                                	Grid.Column="1"
+                                	VerticalOptions="Center">
+                                    <Label
+                                    	FontAttributes="Bold"
+                                    	FontSize="Medium"
+                                    	Text="{Binding Name}"
+                                    	TextColor="Black">
+                                    </Label>
+                                    <Label
+                                    	Text="{Binding Price, StringFormat='Price:{0:C2}'}"
+                                    	TextColor="Red">
+                                    </Label>
+                                    <Label
+                                    	Text="{Binding Stock, StringFormat='Stock:{0:N2}'}"
+                                    	TextColor="Black">
+                                    </Label>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
     </ContentPage.Content>
