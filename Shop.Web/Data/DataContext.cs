@@ -18,6 +18,10 @@ namespace Shop.Web.Data
         {
 
         }
+        /// <summary>
+        /// Part 25
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Product>()

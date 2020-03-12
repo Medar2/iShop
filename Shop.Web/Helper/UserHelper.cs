@@ -25,6 +25,11 @@ namespace Shop.Web.Helper
             return await this.userManager.CreateAsync(user, password);
         }
 
+        public async Task<IdentityResult> ChangePasswordAsync(User user, string OldPassword, string newPassword)
+        {
+            return await this.userManager.ChangePasswordAsync(user,OldPassword,newPassword);
+        }
+
         public async Task<User> GetUserbyEmailAsync(string email)
         {
             //var user = await userManager.FindByEmailAsync(email);
@@ -37,7 +42,7 @@ namespace Shop.Web.Helper
                 model.UserName,
                 model.Password,
                 model.RememberMe,
-                false);
+                false); //investigar el bloqueo y desbloqueo de usuarios
         }
 
 
@@ -45,6 +50,11 @@ namespace Shop.Web.Helper
         {
             await this.signInManager.SignOutAsync();
 
+        }
+
+        public async Task<IdentityResult> UpdateUserAsync(User user)
+        {
+            return await this.userManager.UpdateAsync(user);
         }
     }
 }
