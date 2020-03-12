@@ -1,22 +1,19 @@
 ﻿
 namespace Shop.Web
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+    using Data;
+    using Data.Entities;
+    using Helper;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.HttpsPolicy;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Data;
-    using Data.Entities;
-    using Helper;
+    using Microsoft.IdentityModel.Tokens;
+    using System.Text;
 
     public class Startup
     {
@@ -43,14 +40,25 @@ namespace Shop.Web
 
              })
                 .AddEntityFrameworkStores<DataContext>();
-            
+
             services.AddDbContext<DataContext>(cfg =>
                 {
-                cfg.UseSqlServer(this.Configuration.GetConnectionString("ShopConnection"));
-            });
+                    cfg.UseSqlServer(this.Configuration.GetConnectionString("ShopConnection"));
+                });
 
             services.AddTransient<SeedDb>();
 
+            services.AddAuthentication()
+                    .AddCookie()
+                    .AddJwtBearer(cfg =>
+                    {
+                        cfg.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidIssuer = this.Configuration["Tokens:Issuer"],
+                            ValidAudience = this.Configuration["Tokens:Audience"],
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.Configuration["Tokens:Key"]))
+                        };
+                    });
 
             //---------------------------------------------
             //Repositorios
@@ -58,7 +66,7 @@ namespace Shop.Web
 
             //services.AddScoped<IRepositoy, Repositoy>();
             services.AddScoped<IUserHelper, UserHelper>();
-            services.AddScoped<IProductRepository,ProductRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
 
 
@@ -92,6 +100,9 @@ namespace Shop.Web
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseCookiePolicy();
+
+
+
 
             app.UseMvc(routes =>
             {
