@@ -166,6 +166,7 @@
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Manager,Official")]
         public async Task<IActionResult> Edit(ProductViewModel view)
         {
            
@@ -223,6 +224,8 @@
         }
 
         // GET: Products/Delete/5
+        //[Authorize(Roles ="Admin,SuperUser")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

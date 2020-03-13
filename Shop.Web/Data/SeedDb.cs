@@ -25,6 +25,13 @@
         {
             await this.context.Database.EnsureCreatedAsync();
 
+            await this.userHelper.CheckRoleAsync("Admin");          //Administrador
+            await this.userHelper.CheckRoleAsync("Customer");       //Clientes
+            await this.userHelper.CheckRoleAsync("Manager");        //Gerentes
+            await this.userHelper.CheckRoleAsync("Cashier");        //Cajeros
+            await this.userHelper.CheckRoleAsync("Accauntant");     //Contadores
+            await this.userHelper.CheckRoleAsync("Official");     //Oficiales de Oficinas
+
             //var user = await this.userManager.FindByEmailAsync("jcaraballo74@hotmail.com");
             var user = await this.userHelper.GetUserbyEmailAsync("jcaraballo74@hotmail.com");
 
@@ -46,9 +53,15 @@
                 {
                     throw new InvalidOperationException("Could not create the user in seeder");
                 }
+
+                await this.userHelper.AddUserToRoleAsync(user, "Admin");
             }
-            
-            
+
+            var IsInRole = await this.userHelper.IsUserInRole(user, "Admin");
+            if (!IsInRole)
+            {
+                await this.userHelper.AddUserToRoleAsync(user, "Admin");
+            }
             if (!this.context.Products.Any())
             {
                 this.AddProduct("iPhone X",user);
