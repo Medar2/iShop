@@ -57,7 +57,7 @@
                 await this.userHelper.AddUserToRoleAsync(user, "Admin");
             }
 
-            var IsInRole = await this.userHelper.IsUserInRole(user, "Admin");
+            var IsInRole = await this.userHelper.IsUserInRoleAsync(user, "Admin");
             if (!IsInRole)
             {
                 await this.userHelper.AddUserToRoleAsync(user, "Admin");

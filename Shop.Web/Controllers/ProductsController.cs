@@ -30,7 +30,7 @@
         }
 
         // GET: Products
-        [Authorize]
+        //[Authorize]
         public async Task<IActionResult> Index()
         {
             //return View(await _context.Products.ToListAsync());
@@ -61,6 +61,8 @@
 
         // GET: Products/Create
         [AutoValidateAntiforgeryToken]
+        [Authorize(Roles ="Admin")]
+
         public IActionResult Create()
         {
             return View();
@@ -127,6 +129,7 @@
         }
 
         // GET: Products/Edit/5
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

@@ -18,9 +18,12 @@ namespace Shop.Web.Helper
         Task<IdentityResult> ChangePasswordAsync(User user, string OldPassword, string newPassword);
 
         Task<SignInResult> ValidatePasswordAsync(User user, string password);
+       
         Task CheckRoleAsync(string roleName);
+        
         Task AddUserToRoleAsync(User user, string roleName);
-        Task<bool> IsUserInRole(User user, string roleName);
+        
+        Task<bool> IsUserInRoleAsync(User user, string roleName);
     }
 
 }
