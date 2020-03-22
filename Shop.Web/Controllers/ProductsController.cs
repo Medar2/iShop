@@ -37,6 +37,10 @@
             return View(this.productRepository.GetAll().OrderBy(p=> p.Name));
 
         }
+        public IActionResult ProductNotFound()
+        {
+            return this.View();
+        }
 
         // GET: Products/Details/5
         //public async Task<IActionResult> Details(int? id)
@@ -44,7 +48,8 @@
         {
             if (id == null)
             {
-                return NotFound();
+                //return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             //var product = await _context.Products
@@ -53,7 +58,7 @@
 
             if (product == null) 
             {
-                return NotFound();
+                return new NotFoundViewResult("ProductNotFound");
             }
 
             return View(product);

@@ -18,6 +18,7 @@ namespace Shop.Web.Controllers
     {
         private readonly IUserHelper userHelper;
         private readonly IConfiguration configuration;
+       
 
         public AccountController(
             IUserHelper userHelper,
@@ -232,6 +233,9 @@ namespace Shop.Web.Controllers
 
             return this.BadRequest();
         }
-
+        public IActionResult NotAuthorized()
+        {
+            return this.View();
+        }
     }
 }
