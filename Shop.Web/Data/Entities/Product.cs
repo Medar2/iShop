@@ -34,8 +34,9 @@ namespace Shop.Web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = false)]
         public double Stock { get; set; }
 
+        [Required]
         public User User { get; set; } //Relacion de Uno a varios
-            
+
         public string ImageFullPath   {
             get
             {

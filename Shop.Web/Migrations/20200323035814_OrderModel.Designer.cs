@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shop.Web.Data;
 
 namespace Shop.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200323035814_OrderModel")]
+    partial class OrderModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -233,8 +235,7 @@ namespace Shop.Web.Migrations
 
                     b.Property<double>("Stock");
 
-                    b.Property<string>("UserId")
-                        .IsRequired();
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 
@@ -380,8 +381,7 @@ namespace Shop.Web.Migrations
                 {
                     b.HasOne("Shop.Web.Data.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }
