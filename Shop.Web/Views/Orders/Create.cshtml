@@ -7,50 +7,92 @@
 
 <p>
     <a asp-action="AddProduct" class="btn btn-success">AddProduct</a>
-    <a asp-action="ConfirmOrder" class="btn btn-primary">Confirm Oder</a>
+    <a asp-action="ConfirmOrder" class="btn btn-primary" id="btnConfirm">Confirm Oder</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Product.Name)
-            </th>                
-        
+            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
-                
+
             <th>
 
                 @Html.DisplayNameFor(model => model.Quantity)
-             </th>
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Value)
-            </th>            
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelitem => item.Product.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelitem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelitem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelitem => item.Value)
-            </td>
-            <td>
-                <a asp-action="Increase" asp-route-id="@item.Id" class="btn btn-warning"><i class="fa fa-plus"></i></a>
-                <a asp-action="Decrease" asp-route-id="@item.Id" class="btn btn-info"><i class="fa fa-minus"></i></a>
-                <a asp-action="DeleteItem" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelitem => item.Product.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelitem => item.Value)
+                </td>
+                <td>
+                    <a asp-action="Increase" asp-route-id="@item.Id" class="btn btn-warning"><i class="fa fa-plus"></i></a>
+                    <a asp-action="Decrease" asp-route-id="@item.Id" class="btn btn-info"><i class="fa fa-minus"></i></a>
+                    <a asp-action="DeleteItem" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
+
+<div id="confirmDialog" class="modal fade">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><i class="fa fa-window-close"></i></button>
+                <h4 class="modal-title">Confirm</h4>
+            </div>
+            <div class="modal-body">
+                <p>Do you want to confirm the order?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnYes">Yes</button>
+                <button type="button" class="btn btn-success" id="btnNo">No</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnConfirm").click(function () {
+                $("#confirmDialog").modal('show');
+                return false; //Evita que se ejecute la accion en el controlador
+            });
+
+            $("#btnNo").click(function () {
+                $("#confirmDialog").modal('hide');
+                return false;
+            });
+
+            $("#btnYes").click(function () {
+                window.location.href = '/Orders/ConfirmOrder'; //llama la accion en el controlador
+            });
+        });
+    </script>
+}
