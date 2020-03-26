@@ -2,7 +2,7 @@
 
 namespace Shop.Web.Migrations
 {
-    public partial class addusers_1 : Migration
+    public partial class addOrder : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

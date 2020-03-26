@@ -12,12 +12,12 @@ namespace Shop.Web.Data.Entities
 
         [Required]
         [Display(Name ="Order Date")]
-        [DisplayFormat(DataFormatString ="{0:yyyy/MM/dd hh:mm tt}",ApplyFormatInEditMode = false)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = false)]
         public DateTime OrderDate  { get; set; }
 
-        [Required]
+        
         [Display(Name = "Delivery Date")]
-        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd hh:mm tt}", ApplyFormatInEditMode = false)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = false)]
         public DateTime? DeliveryDate { get; set; }
 
         [Required]
@@ -25,11 +25,28 @@ namespace Shop.Web.Data.Entities
 
         public IEnumerable<OrderDetail> Items { get; set; }
 
+        public int Lines  { get { return this.Items == null ? 0 : this.Items.Count(); } }
+
+
         [DisplayFormat(DataFormatString ="{0:N2}")]
         public double Quantity { get { return this.Items == null ? 0 : this.Items.Sum(i => i.Quantity); } }
 
         [DisplayFormat(DataFormatString = "{0:N2}")]
         public decimal Value{ get { return this.Items == null ? 0 : this.Items.Sum(i => i.Value); } }
 
+        [Display(Name = "Order Date")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy hh:mm tt}", ApplyFormatInEditMode = false)]
+        public DateTime? OrderDateLocal
+        {
+            get
+            {
+                if (this.OrderDate == null)
+                {
+                    return null;
+                }
+
+                return this.OrderDate.ToLocalTime();
+            }
+        }
     }
 }

@@ -10,6 +10,8 @@ namespace Shop.Web.Data.Entities
     {
         public string FirsName { get; set; }
         public string LastName { get; set; }
-        
+
+        public string FullName { get { return $"{this.FirsName} {this.LastName}"; } }
+
     }
 }

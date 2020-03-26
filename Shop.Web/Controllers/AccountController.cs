@@ -36,7 +36,7 @@ namespace Shop.Web.Controllers
 
             return View();
         }
-        [HttpPost]
+      
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -50,7 +50,7 @@ namespace Shop.Web.Controllers
                         return this.Redirect(this.Request.Query["ReturnUrl"].First());
                     }
 
-                    return this.RedirectToAction("Index", "Products");
+                    return this.RedirectToAction("Index", "Home");
                 }
             }
 

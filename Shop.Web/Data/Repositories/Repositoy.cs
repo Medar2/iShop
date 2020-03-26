@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Web.Data
 {
-    public class Repositoy : IRepositoy
+    public class Repositoy : IRepository
     {
         private readonly DataContext context;
 

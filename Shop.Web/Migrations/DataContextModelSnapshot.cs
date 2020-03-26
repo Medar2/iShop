@@ -148,8 +148,7 @@ namespace Shop.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("DeliveryDate")
-                        .IsRequired();
+                    b.Property<DateTime?>("DeliveryDate");
 
                     b.Property<DateTime>("OrderDate");
 

@@ -10,8 +10,8 @@ using Shop.Web.Data;
 namespace Shop.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200323035814_OrderModel")]
-    partial class OrderModel
+    [Migration("20200325183520_addOrder1")]
+    partial class addOrder1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -150,8 +150,7 @@ namespace Shop.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("DeliveryDate")
-                        .IsRequired();
+                    b.Property<DateTime?>("DeliveryDate");
 
                     b.Property<DateTime>("OrderDate");
 
@@ -235,7 +234,8 @@ namespace Shop.Web.Migrations
 
                     b.Property<double>("Stock");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -381,7 +381,8 @@ namespace Shop.Web.Migrations
                 {
                     b.HasOne("Shop.Web.Data.Entities.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

@@ -6,7 +6,7 @@ namespace Shop.Web.Data
     using System.Threading.Tasks;
     using Entities;
 
-    public interface IRepositoy
+    public interface IRepository
     {
         void AddProducts(Product product);
         
