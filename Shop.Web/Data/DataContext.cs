@@ -16,7 +16,7 @@ namespace Shop.Web.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<OrderDetailTemp> OrderDetailTemps{ get; set; }
-
+        public DbSet<City> Cities { get; set; }
         public DataContext(DbContextOptions<DataContext> options ) : base(options)
         {
 

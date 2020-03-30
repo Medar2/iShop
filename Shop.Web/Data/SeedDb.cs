@@ -31,9 +31,40 @@
             await this.userHelper.CheckRoleAsync("Cashier");        //Cajeros
             await this.userHelper.CheckRoleAsync("Accauntant");     //Contadores
             await this.userHelper.CheckRoleAsync("Official");     //Oficiales de Oficinas
+            var cities = new List<City>();
+
+            if (!this.context.Countries.Any())
+            {
+                cities = new List<City>();
+                cities.Add(new City { Name = "Medellín" });
+                cities.Add(new City { Name = "Bogotá" });
+                cities.Add(new City { Name = "Calí" });
+
+                this.context.Countries.Add(new Country
+                {
+                    Cities = cities,
+                    Name = "Colombia"
+                });
+
+                cities = new List<City>();
+                cities.Add(new City { Name = "Distrito Nacional" });
+                cities.Add(new City { Name = "Santo Domingo" });
+                cities.Add(new City { Name = "Santiago Rodriguez" });
+
+                this.context.Countries.Add(new Country
+                {
+                    Cities = cities,
+                    Name = "Republica Dominicana"
+                });
+
+                await this.context.SaveChangesAsync();
+            }
+
+
 
             //var user = await this.userManager.FindByEmailAsync("jcaraballo74@hotmail.com");
             var user = await this.userHelper.GetUserbyEmailAsync("jcaraballo74@hotmail.com");
+            var cityID = await this.context.Cities.FindAsync(1);
 
             if (user == null)
             {
@@ -42,9 +73,22 @@
                     FirsName = "Jose",
                     LastName = "Caraballo",
                     Email = "jcaraballo74@hotmail.com",
-                    UserName = "jcaraballo74@hotmail.com"
-
+                    UserName = "jcaraballo74@hotmail.com",
+                    PhoneNumber = "350 634 2747",
+                    Address = "Calle Luna Calle Sol",
+                    CityId = cityID.Id,
+                    City = this.context.Countries.FirstOrDefault().Cities.FirstOrDefault()
                 };
+                //user = new User();
+                //user.FirsName = "Jose";
+                //user.LastName = "Caraballo";
+                //user.Email = "jcaraballo74@hotmail.com";
+                //user.UserName = "jcaraballo74@hotmail.com";
+                //user.PhoneNumber = "350 634 2747";
+                //user.Address = "Calle Luna Calle Sol";
+                //user.CityId = cityID.Id;
+                //user.City = this.context.Countries.FirstOrDefault().Cities.FirstOrDefault();
+
 
                 //var result = await this.userManager.CreateAsync(user, "123456");
                 var result = await this.userHelper.AddUserAsync(user, "123456");

@@ -12,6 +12,7 @@ namespace Shop.Web.Data.Repositories
 
         Task AddItemToOrderAsync(AddItemViewModel model, string userName);
         Task<IQueryable<Order>> GetOrdersAsync(string userName);
+        Task<Order> GetOrdersAsync(int id);
 
         Task<IQueryable<OrderDetailTemp>> GetOrderDetailTempAsync(string userName);
 
@@ -20,6 +21,8 @@ namespace Shop.Web.Data.Repositories
         Task DeleteDetailTempAsync(int id);
 
         Task<bool> ConfirmOrderAsync(string userName);
+
+        Task DeliverOrder(DeliverViewModel model);
 
     }
 }
