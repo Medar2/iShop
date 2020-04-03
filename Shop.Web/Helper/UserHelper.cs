@@ -60,6 +60,11 @@ namespace Shop.Web.Helper
             return await this.userManager.GenerateEmailConfirmationTokenAsync(user);
         }
 
+        public async Task<string> GeneratePasswordResetTokenAsync(User user)
+        {
+            return await this.userManager.GeneratePasswordResetTokenAsync(user);
+        }
+
         public async Task<User> GetUserbyEmailAsync(string email)
         {
             //var user = await userManager.FindByEmailAsync(email);
@@ -91,6 +96,12 @@ namespace Shop.Web.Helper
             await this.signInManager.SignOutAsync();
 
         }
+
+        public async Task<IdentityResult> ResetPasswordAsync(User user, string token, string password)
+        {
+            return await this.userManager.ResetPasswordAsync(user, token, password);
+        }
+
 
         public async Task<IdentityResult> UpdateUserAsync(User user)
         {
