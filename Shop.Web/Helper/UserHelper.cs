@@ -50,10 +50,25 @@ namespace Shop.Web.Helper
             }
         }
 
+        public async Task<IdentityResult> ConfirmEmailAsync(User user, string token)
+        {
+            return await this.userManager.ConfirmEmailAsync(user, token);
+        }
+
+        public async Task<string> GenerateEmailConfirmationTokenAsync(User user)
+        {
+            return await this.userManager.GenerateEmailConfirmationTokenAsync(user);
+        }
+
         public async Task<User> GetUserbyEmailAsync(string email)
         {
             //var user = await userManager.FindByEmailAsync(email);
             return await userManager.FindByEmailAsync(email);
+        }
+
+        public async Task<User> GetUserByIdAsync(string userId)
+        {
+            return await this.userManager.FindByIdAsync(userId);
         }
 
         public async Task<bool> IsUserInRoleAsync(User user, string roleName)
@@ -90,54 +105,5 @@ namespace Shop.Web.Helper
          false);
         }
 
-        //Task<IdentityResult> IUserHelper.AddUserAsync(User user, string password)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //Task IUserHelper.AddUserToRoleAsync(User user, string roleName)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //Task<IdentityResult> IUserHelper.ChangePasswordAsync(User user, string OldPassword, string newPassword)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //Task IUserHelper.CheckRoleAsync(string roleName)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //Task<User> IUserHelper.GetUserbyEmailAsync(string email)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //Task<bool> IUserHelper.IsUserInRole(User user, string roleName)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //Task<SignInResult> IUserHelper.LoginAsync(LoginViewModel model)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //Task IUserHelper.LogoutAsync()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //Task<IdentityResult> IUserHelper.UpdateUserAsync(User user)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //Task<SignInResult> IUserHelper.ValidatePasswordAsync(User user, string password)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

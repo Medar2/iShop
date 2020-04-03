@@ -31,15 +31,18 @@ namespace Shop.Web
             //Descpues de ser configurado la inyeccion en el seeder venir aqui y configurar el servicio para el password.
             services.AddIdentity<User, IdentityRole>(cfg =>
              {
+                 cfg.Tokens.AuthenticatorTokenProvider = TokenOptions.DefaultAuthenticatorProvider;
+                 cfg.SignIn.RequireConfirmedEmail = true;
                  cfg.User.RequireUniqueEmail = true;
                  cfg.Password.RequireDigit = false;
                  cfg.Password.RequiredUniqueChars = 0;
                  cfg.Password.RequireLowercase = false;
                  cfg.Password.RequireNonAlphanumeric = false;
                  cfg.Password.RequireUppercase = false;
-                 cfg.Password.RequiredLength = 6;
+                 cfg.Password.RequiredLength = 6; 
 
              })
+                .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<DataContext>();
 
             services.AddDbContext<DataContext>(cfg =>
@@ -70,6 +73,7 @@ namespace Shop.Web
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IMailHelper, MailHelper>();
 
 
             //services.AddScoped<IRepositoy, MockRepository>();

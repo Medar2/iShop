@@ -20,15 +20,18 @@ namespace Shop.Web.Controllers
         private readonly IUserHelper userHelper;
         private readonly IConfiguration configuration;
         private readonly ICountryRepository countryRepository;
+        private readonly IMailHelper mailHelper;
 
         public AccountController(
             IUserHelper userHelper,
             IConfiguration configuration,
-            ICountryRepository countryRepository)
+            ICountryRepository countryRepository,
+            IMailHelper mailHelper)
         {
             this.userHelper = userHelper;
             this.configuration = configuration;
             this.countryRepository = countryRepository;
+            this.mailHelper = mailHelper;
         }
         public IActionResult Login()
         {
@@ -106,23 +109,34 @@ namespace Shop.Web.Controllers
                         return this.View(model);
                     }
 
-
-                    var loginViewModel = new LoginViewModel
+                    var myToken = await this.userHelper.GenerateEmailConfirmationTokenAsync(user);
+                    var tokenLink = this.Url.Action("ConfirmEmail", "Account", new
                     {
-                        Password = model.Password,
-                        RememberMe = false,
-                        UserName = model.Username
-                    };
+                        userid = user.Id,
+                        token = myToken
+                    
+                    },protocol:HttpContext.Request.Scheme);
 
-                    var result2 = await this.userHelper.LoginAsync(loginViewModel);
-
-                    if (result2.Succeeded)
-                    {
-                        return this.RedirectToAction("Index", "Products");
-                    }
-
-                    this.ModelState.AddModelError(string.Empty, "The user couldn't be login.");
+                    this.mailHelper.SendMail(model.Username, "Shop Email confirmation", $"<h1>Email Confirmation</h1>" + $"to allow the wuer," + $"plase click in thi link:</br></br><a href = \"{tokenLink}\">Confirmation Email</a>");
+                    this.ViewBag.Message = "the instructions to allow your user has been sent to email.";
                     return this.View(model);
+
+                    //var loginViewModel = new LoginViewModel
+                    //{
+                    //    Password = model.Password,
+                    //    RememberMe = false,
+                    //    UserName = model.Username
+                    //};
+
+                    //var result2 = await this.userHelper.LoginAsync(loginViewModel);
+
+                    //if (result2.Succeeded)
+                    //{
+                    //    return this.RedirectToAction("Index", "Products");
+                    //}
+
+                    //this.ModelState.AddModelError(string.Empty, "The user couldn't be login.");
+                    //return this.View(model);
                 }
 
                 this.ModelState.AddModelError(string.Empty, "The username is already registered.");
@@ -281,5 +295,27 @@ namespace Shop.Web.Controllers
             return this.Json(country.Cities.OrderBy(c => c.Name));        
         }
 
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (string.IsNullOrEmpty(userId) || string.IsNullOrEmpty(token))
+            {
+                return NotFound();
+            }
+
+            var user = await this.userHelper.GetUserByIdAsync(userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var result = await this.userHelper.ConfirmEmailAsync(user, token);
+            if (!result.Succeeded)
+            {
+                return NotFound();
+            }
+
+            return View();
+
+        }
     }
 }
