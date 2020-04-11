@@ -10,7 +10,7 @@ namespace Shop.Web.Data.Entities
     public class User:IdentityUser
     {
         [MaxLength(50, ErrorMessage = "The field {0} only can contain {1} caraters length.")]
-        public string FirsName { get; set; }
+        public string FirstName { get; set; }
 
         [MaxLength(50, ErrorMessage = "The field {0} only can contain {1} caraters length.")]
         public string LastName { get; set; }
@@ -22,7 +22,7 @@ namespace Shop.Web.Data.Entities
 
         public City City { get; set; }
 
-        public string FullName { get { return $"{this.FirsName} {this.LastName}"; } }
+        public string FullName { get { return $"{this.FirstName} {this.LastName}"; } }
 
     }
 }

@@ -91,7 +91,7 @@ namespace Shop.Web.Controllers
                     var city = await this.countryRepository.GetCityAsync(model.CityId);
                     user = new User
                     {
-                        FirsName = model.FirstName,
+                        FirstName = model.FirstName,
                         LastName = model.LastName,
                         Email = model.Username,
                         UserName = model.Username,
@@ -152,7 +152,7 @@ namespace Shop.Web.Controllers
 
             if (user != null)
             {
-                model.FirstName = user.FirsName;
+                model.FirstName = user.FirstName;
                 model.LastName = user.LastName;
                 model.Address = user.Address;
                 model.PhoneNumber = user.PhoneNumber;
@@ -185,7 +185,7 @@ namespace Shop.Web.Controllers
                 {
                     var city = await this.countryRepository.GetCityAsync(model.CityId);
 
-                    user.FirsName = model.FirstName;
+                    user.FirstName = model.FirstName;
                     user.LastName = model.LastName;
                     user.Address = model.Address;
                     user.PhoneNumber = model.PhoneNumber;
