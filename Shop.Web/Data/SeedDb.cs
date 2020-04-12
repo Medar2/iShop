@@ -177,7 +177,7 @@
         private async Task<User> CheckUserAsync(string userName, string firstName, string lastName, string role)
                 {
                     // Add user
-                    var user = await this.userHelper.GetUserbyEmailAsync(userName);
+                    var user = await this.userHelper.GetUserByEmailAsync(userName);
                     if (user == null)
                     {
                         user = await this.AddUser(userName, firstName, lastName, role);

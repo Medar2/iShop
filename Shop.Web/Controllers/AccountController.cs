@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -32,6 +33,23 @@ namespace Shop.Web.Controllers
             this.configuration = configuration;
             this.countryRepository = countryRepository;
             this.mailHelper = mailHelper;
+        }
+        [Authorize(Roles ="Admin")]
+        public async Task<IActionResult> Index()
+        {
+            var users = await this.userHelper.GetAllUsersAsync();
+            foreach (var user in users)
+            {
+                var myuser = await this.userHelper.GetUserByIdAsync(user.Id);
+                if (myuser != null)
+                {
+                    user.IsAdmin = await this.userHelper.IsUserInRoleAsync(myuser, "Admin");
+                }
+            }
+            //users.ForEach(async u => u.IsAdmin = await this.userHelper.IsUserInRoleAsync(u, "Admin"));
+
+            return this.View(users);
+        
         }
         public IActionResult Login()
         {
@@ -85,7 +103,7 @@ namespace Shop.Web.Controllers
         {
             if (this.ModelState.IsValid)
             {
-                var user = await this.userHelper.GetUserbyEmailAsync(model.Username);
+                var user = await this.userHelper.GetUserByEmailAsync(model.Username);
                 if (user == null)
                 {
                     var city = await this.countryRepository.GetCityAsync(model.CityId);
@@ -147,7 +165,7 @@ namespace Shop.Web.Controllers
 
         public async Task<IActionResult> ChangeUser()
         {
-            var user = await this.userHelper.GetUserbyEmailAsync(this.User.Identity.Name);
+            var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
             var model = new ChangeUserViewModel();
 
             if (user != null)
@@ -180,7 +198,7 @@ namespace Shop.Web.Controllers
         {
             if (this.ModelState.IsValid)
             {
-                var user = await this.userHelper.GetUserbyEmailAsync(this.User.Identity.Name);
+                var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                 if (user != null)
                 {
                     var city = await this.countryRepository.GetCityAsync(model.CityId);
@@ -222,7 +240,7 @@ namespace Shop.Web.Controllers
         {
             if (this.ModelState.IsValid)
             {
-                var user = await this.userHelper.GetUserbyEmailAsync(this.User.Identity.Name);
+                var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
                 if (user != null)
                 {
                     var result = await this.userHelper.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
@@ -249,7 +267,7 @@ namespace Shop.Web.Controllers
         {
             if (this.ModelState.IsValid)
             {
-                var user = await this.userHelper.GetUserbyEmailAsync(model.UserName);
+                var user = await this.userHelper.GetUserByEmailAsync(model.UserName);
                 if (user != null)
                 {
                     var result = await this.userHelper.ValidatePasswordAsync(
@@ -327,7 +345,7 @@ namespace Shop.Web.Controllers
         {
             if (this.ModelState.IsValid)    
             {
-                var user = await this.userHelper.GetUserbyEmailAsync(model.Email);
+                var user = await this.userHelper.GetUserByEmailAsync(model.Email);
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, "The email doesn't correspont to a registered user.");
@@ -358,7 +376,7 @@ namespace Shop.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
-            var user = await this.userHelper.GetUserbyEmailAsync(model.UserName);
+            var user = await this.userHelper.GetUserByEmailAsync(model.UserName);
             if (user != null)
             {
                 var result = await this.userHelper.ResetPasswordAsync(user, model.Token, model.Password);

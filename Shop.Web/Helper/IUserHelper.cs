@@ -1,13 +1,20 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Shop.Web.Data.Entities;
 using Shop.Web.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Shop.Web.Helper
 {
     public interface IUserHelper
     {
-        Task<User> GetUserbyEmailAsync(string email);
+        Task<List<User>> GetAllUsersAsync();
+
+        Task RemoveUserFromRoleAsync(User user, string roleName);
+
+        Task DeleteUserAsync(User user);
+
+        Task<User> GetUserByEmailAsync(string email);
         Task<IdentityResult> AddUserAsync(User user, string password);
 
         Task<SignInResult> LoginAsync(LoginViewModel model);

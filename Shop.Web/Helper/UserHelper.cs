@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Shop.Web.Data.Entities;
 using Shop.Web.Models;
 using System;
@@ -55,6 +56,11 @@ namespace Shop.Web.Helper
             return await this.userManager.ConfirmEmailAsync(user, token);
         }
 
+        public async Task DeleteUserAsync(User user)
+        {
+            await this.userManager.DeleteAsync(user);
+        }
+
         public async Task<string> GenerateEmailConfirmationTokenAsync(User user)
         {
             return await this.userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -65,7 +71,15 @@ namespace Shop.Web.Helper
             return await this.userManager.GeneratePasswordResetTokenAsync(user);
         }
 
-        public async Task<User> GetUserbyEmailAsync(string email)
+        public async Task<List<User>> GetAllUsersAsync()
+        {
+            return await this.userManager.Users
+                .Include(u => u.City)
+                .OrderBy(u => u.FirstName)
+                .ToListAsync();
+        }
+
+        public async Task<User> GetUserByEmailAsync(string email)
         {
             //var user = await userManager.FindByEmailAsync(email);
             return await userManager.FindByEmailAsync(email);
@@ -95,6 +109,11 @@ namespace Shop.Web.Helper
         {
             await this.signInManager.SignOutAsync();
 
+        }
+
+        public async Task RemoveUserFromRoleAsync(User user, string roleName)
+        {
+            await this.userManager.RemoveFromRoleAsync(user, roleName);
         }
 
         public async Task<IdentityResult> ResetPasswordAsync(User user, string token, string password)

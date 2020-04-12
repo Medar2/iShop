@@ -22,7 +22,7 @@ namespace Shop.Web.Data.Repositories
 
         public async Task<IQueryable<OrderDetailTemp>> GetOrderDetailTempAsync(string userName)
         {
-            var user = await this.userHelper.GetUserbyEmailAsync(userName);
+            var user = await this.userHelper.GetUserByEmailAsync(userName);
             if (user == null)
             {
                 return null;
@@ -35,7 +35,7 @@ namespace Shop.Web.Data.Repositories
 
         public async Task<IQueryable<Order>> GetOrdersAsync(string userName)
         {
-            var user = await this.userHelper.GetUserbyEmailAsync(userName);
+            var user = await this.userHelper.GetUserByEmailAsync(userName);
             if (user == null)
             {
                 return null;
@@ -59,7 +59,7 @@ namespace Shop.Web.Data.Repositories
 
         public async Task AddItemToOrderAsync(AddItemViewModel model, string userName)
         {
-            var user = await this.userHelper.GetUserbyEmailAsync(userName);
+            var user = await this.userHelper.GetUserByEmailAsync(userName);
             if (user == null)
             {
                 return;
@@ -126,7 +126,7 @@ namespace Shop.Web.Data.Repositories
 
         public async Task<bool> ConfirmOrderAsync(string userName)
         {
-            var user = await this.userHelper.GetUserbyEmailAsync(userName);
+            var user = await this.userHelper.GetUserByEmailAsync(userName);
             if (user == null)
             {
                 return false;
