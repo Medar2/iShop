@@ -37,11 +37,23 @@ namespace Shop.UIForms.ViewModels
         private async void LoadProducts()
         {
             IsRefreshing = true;
+            //var response = await this.apiService.GetListAsync<Product>(
+            //    "https://devshop.azurewebsites.net",
+            //    "/api",
+            //    "/Products");
+            
+            //var url = Application.Current.Resources["UrlAPI"].ToString();
+            var url = Application.Current.Resources["UrlAPI"].ToString();
             var response = await this.apiService.GetListAsync<Product>(
-                "https://devshop.azurewebsites.net",
+                url,
                 "/api",
-                "/Products");
+                "/Products",
+                "bearer",
+                MainViewModel.GetInstance().Token.Token);
+
+
             IsRefreshing = false;
+
             if (!response.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert(
