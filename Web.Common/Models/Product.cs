@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Web.Common.Models
+namespace Shop.Common.Models
 {
     public class Product
     {
@@ -20,10 +20,10 @@ namespace Web.Common.Models
         public string ImagenUrl { get; set; }
 
         [JsonProperty("lastPurchase")]
-        public object LastPurchase { get; set; }
+        public DateTime? LastPurchase { get; set; }
 
         [JsonProperty("lastSale")]
-        public object LastSale { get; set; }
+        public DateTime? LastSale { get; set; }
 
         [JsonProperty("isAvailabe")]
         public bool IsAvailabe { get; set; }

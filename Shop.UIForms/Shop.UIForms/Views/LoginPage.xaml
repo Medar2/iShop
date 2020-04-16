@@ -10,6 +10,11 @@
     <ContentPage.Content>
         <ScrollView BindingContext="{Binding Login}"> <!--SubBindings-->
             <StackLayout Padding="8">
+                <Image
+                	HeightRequest="150"
+                	Source="shop">
+                </Image>
+
                 <!--pading un valor, aplica para todos los lados de la pantalla,dos valores
                 aplica, el primer valor arriba y abajo, segundo valor derecha e inzquierda
                 Tres valores, Error, no aplica
@@ -32,14 +37,19 @@
                     Text="{Binding Password}">
                 </Entry>
                 <ActivityIndicator
-                	IsRunning="{Binding IsRunning}">
+                	IsRunning="{Binding IsRunning}"
+                    VerticalOptions="CenterAndExpand">
                 </ActivityIndicator>
-                <Button 
-                    Text="Login"
-                    Command="{Binding LoginCommand}"
-                    IsEnabled="{Binding IsEnabled}">
-                    
+                <Button
+                	BackgroundColor="Navy"
+                	BorderRadius="23"
+                	Command="{Binding LoginCommand}"
+                	HeightRequest="46"
+                	IsEnabled="{Binding IsEnabled}"
+                	Text="Login"
+                	TextColor="White">
                 </Button>
+
             </StackLayout>
         </ScrollView>
         

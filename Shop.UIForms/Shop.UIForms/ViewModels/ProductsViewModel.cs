@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
-using Web.Common.Models;
-using Web.Common.Services;
+using Shop.Common.Models;
+using Shop.Common.Services;
 using Xamarin.Forms;
 
 namespace Shop.UIForms.ViewModels

@@ -2,8 +2,8 @@
 using Shop.UIForms.Views;
 using System;
 using System.Windows.Input;
-using Web.Common.Models;
-using Web.Common.Services;
+using Shop.Common.Models;
+using Shop.Common.Services;
 using Xamarin.Forms;
 
 namespace Shop.UIForms.ViewModels
@@ -98,7 +98,8 @@ namespace Shop.UIForms.ViewModels
             var mainViewModel = MainViewModel.GetInstance();
             mainViewModel.Token = token;
             mainViewModel.Products = new ProductsViewModel();
-            await Application.Current.MainPage.Navigation.PushAsync(new ProductsPage());
+            //await Application.Current.MainPage.Navigation.PushAsync(new ProductsPage());
+            Application.Current.MainPage = new MasterPage();
         }
 
 

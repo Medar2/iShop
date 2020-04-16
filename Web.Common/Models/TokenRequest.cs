@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Web.Common.Models
+namespace Shop.Common.Models
 {
     public class TokenRequest
     {

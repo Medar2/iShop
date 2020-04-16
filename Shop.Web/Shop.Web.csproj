@@ -260,4 +260,8 @@
     <PackageReference Include="MimeKit" Version="2.5.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Web.Common\Shop.Common.csproj" />
+  </ItemGroup>
+
 </Project>

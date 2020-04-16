@@ -1,13 +1,13 @@
 ﻿using Newtonsoft.Json;
+using Shop.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Web.Common.Models;
 
-namespace Web.Common.Services
+namespace Shop.Common.Services
 {
     public class ApiService
     {
