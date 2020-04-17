@@ -17,6 +17,7 @@ namespace Shop.Web.Data
 
         Task<T> UpdateAsync(T entity);
 
+
         Task DeleteAsync(T entity);
 
         Task<bool> ExistsAsync(int Id);

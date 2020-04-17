@@ -100,6 +100,9 @@ namespace Shop.UIForms.ViewModels
             mainViewModel.Products = new ProductsViewModel();
             //await Application.Current.MainPage.Navigation.PushAsync(new ProductsPage());
             Application.Current.MainPage = new MasterPage();
+            mainViewModel.UserEmail = this.Email;
+            mainViewModel.UserPassword = this.Password;
+
         }
 
 

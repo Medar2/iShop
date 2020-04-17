@@ -8,7 +8,7 @@
     using Shop.Web.Helper;
     using System.Threading.Tasks;
 
-    [Route("api/[Controller]")]
+	[Route("api/[Controller]")]
 	[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 	public class ProductsController : Controller
 	{
@@ -16,8 +16,8 @@
 		private readonly IUserHelper userHelper;
 
 		public ProductsController(
-			IProductRepository productRepository, 
-			IUserHelper userHelper )
+			IProductRepository productRepository,
+			IUserHelper userHelper)
 		{
 			this.productRepository = productRepository;
 			this.userHelper = userHelper;
@@ -108,7 +108,6 @@
 			await this.productRepository.DeleteAsync(product);
 			return Ok(product);
 		}
-
 
 	}
 }

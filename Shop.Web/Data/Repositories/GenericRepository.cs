@@ -42,6 +42,7 @@ namespace Shop.Web.Data
 			return entity;
 		}
 
+
 		public async Task DeleteAsync(T entity)
 		{
 			this.context.Set<T>().Remove(entity);

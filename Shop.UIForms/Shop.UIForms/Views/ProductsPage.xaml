@@ -7,6 +7,10 @@
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
              Title="Lista de Articulos"
              x:Class="Shop.UIForms.Views.ProductsPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Icon="ic_action_add_circle" Command="{Binding AddProductCommand}"/>
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <StackLayout 
             BindingContext="{Binding Products}"

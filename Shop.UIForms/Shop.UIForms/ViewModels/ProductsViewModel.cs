@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using Shop.Common.Models;
 using Shop.Common.Services;
@@ -63,8 +64,9 @@ namespace Shop.UIForms.ViewModels
                 return;
             }
 
-            var products = (List<Product>)response.Result;
-            this.Products = new ObservableCollection<Product>(products);
+            var myProducts = (List<Product>)response.Result;
+            this.Products = new ObservableCollection<Product>(myProducts.OrderBy(p => p.Name));
+
         }
     }
 
