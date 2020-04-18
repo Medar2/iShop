@@ -1,4 +1,7 @@
-﻿using Shop.UIForms.ViewModels;
+﻿using Newtonsoft.Json;
+using Shop.Common.Helpers;
+using Shop.Common.Models;
+using Shop.UIForms.ViewModels;
 using Shop.UIForms.Views;
 using System;
 using Xamarin.Forms;
@@ -15,8 +18,23 @@ namespace Shop.UIForms
         {
             InitializeComponent();
 
-            MainViewModel.GetInstance().Login = new LoginViewModel();
-            MainPage = new NavigationPage(new LoginPage());
+            if (Settings.IsRemember)
+            {
+                var token = JsonConvert.DeserializeObject<TokenResponse>(Settings.Token);
+                if (token.Expiration > DateTime.Now)
+                {
+                    var mainViewModel = MainViewModel.GetInstance();
+                    mainViewModel.Token = token;
+                    mainViewModel.UserEmail = Settings.UserEmail;
+                    mainViewModel.UserPassword = Settings.UserPassword;
+                    mainViewModel.Products = new ProductsViewModel();
+                    this.MainPage = new MasterPage();
+                    return;
+                }
+
+                MainViewModel.GetInstance().Login = new LoginViewModel();
+                MainPage = new NavigationPage(new LoginPage());
+            }
         }
 
         protected override void OnStart()
