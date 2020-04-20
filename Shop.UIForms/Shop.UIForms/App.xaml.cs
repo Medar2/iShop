@@ -30,11 +30,10 @@ namespace Shop.UIForms
                     mainViewModel.Products = new ProductsViewModel();
                     this.MainPage = new MasterPage();
                     return;
-                }
-
-                MainViewModel.GetInstance().Login = new LoginViewModel();
-                MainPage = new NavigationPage(new LoginPage());
+                }                
             }
+            MainViewModel.GetInstance().Login = new LoginViewModel();
+            MainPage = new NavigationPage(new LoginPage());
         }
 
         protected override void OnStart()

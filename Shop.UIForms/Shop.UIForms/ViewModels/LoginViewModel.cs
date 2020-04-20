@@ -7,6 +7,7 @@ using Shop.Common.Services;
 using Xamarin.Forms;
 using Shop.Common.Helpers;
 using Newtonsoft.Json;
+using Shop.UIForms.Helpers;
 
 namespace Shop.UIForms.ViewModels
 {
@@ -49,17 +50,17 @@ namespace Shop.UIForms.ViewModels
             if (string.IsNullOrEmpty(this.Email))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Arror",
-                    "You must enter email",
-                    "Accept");
+                    Languages.Error,
+                    Languages.EmailMessage,
+                    Languages.Accept);
                 return;
             }
             if (string.IsNullOrEmpty(this.Password))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Arror",
-                    "You must enter password",
-                    "Accept");
+                    Languages.Error,
+                    Languages.PasswordError,
+                    Languages.Accept);
                 return;
             }
             //if (!this.Email.Equals("jcaraballo74@hotmail.com") || !this.Password.Equals("123456"))
@@ -95,7 +96,9 @@ namespace Shop.UIForms.ViewModels
 
             if (!response.IsSuccess)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Email or password incorrect.", "Accept");
+                await Application.Current.MainPage.DisplayAlert(Languages.Error, 
+                                                                Languages.LoginError,
+                                                                Languages.Accept);
                 return;
             }
 
