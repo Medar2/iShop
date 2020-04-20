@@ -4,9 +4,10 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             xmlns:i18n="clr-namespace:Shop.UIForms.Helpers"
              x:Class="Shop.UIForms.Views.LoginPage"
              BindingContext="{Binding Main,Source={StaticResource Locator}}"
-             Title="Login">
+             Title="{i18n:Translate Login}">
     <ContentPage.Content>
         <ScrollView BindingContext="{Binding Login}"> <!--SubBindings-->
             <StackLayout Padding="8">
@@ -20,11 +21,11 @@
                 Tres valores, Error, no aplica
                 Cuatro valores,izquierda, superior,derecha, inferior.-->
                 <Label 
-                    Text="Email">
+                    Text="{i18n:Translate Email}">
                 </Label>
                 <Entry 
                     Keyboard="Email"
-                    Placeholder="Enter your Email" 
+                    Placeholder="{i18n:Translate EmailPlaceholder}" 
                     Text="{Binding Email}">
                     
                 </Entry>
@@ -33,14 +34,14 @@
                 </Label>
                 <Entry 
                     IsPassword="True"
-                    Placeholder="Enter your password" 
+                    Placeholder="{i18n:Translate PasswordPlaceholder}" 
                     Text="{Binding Password}">
                 </Entry>
                 <StackLayout
 	                    HorizontalOptions="Center"
 	                    Orientation="Horizontal">
                         <Label
-    	                    Text="Rememberme in this device"
+    	                    Text="{i18n:Translate Rememberme}"
     	                    VerticalOptions="Center">
                         </Label>
                         <Switch
@@ -49,7 +50,7 @@
                 </StackLayout>
 
                 <ActivityIndicator
-                	IsRunning="{Binding IsRunning}"
+                	IsRunning="{Binding IsRunning}" 
                     VerticalOptions="CenterAndExpand">
                 </ActivityIndicator>
                 <Button
@@ -58,7 +59,7 @@
                 	Command="{Binding LoginCommand}"
                 	HeightRequest="46"
                 	IsEnabled="{Binding IsEnabled}"
-                	Text="Login"
+                	Text="{i18n:Translate Login}"
                 	TextColor="White">
                 </Button>
 

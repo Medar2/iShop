@@ -132,4 +132,22 @@
   <data name="EmailError" xml:space="preserve">
     <value>Devi inserire la tua email</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Accesso</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Posta elettronica</value>
+  </data>
+  <data name="EmailPlaceholder" xml:space="preserve">
+    <value>Inserisci l'email</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="PasswordPlaceholder" xml:space="preserve">
+    <value>Immettere la password</value>
+  </data>
+  <data name="Rememberme" xml:space="preserve">
+    <value>Ricordati di questo dispositivo!</value>
+  </data>
 </root>
