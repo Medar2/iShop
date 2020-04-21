@@ -88,15 +88,6 @@ namespace Shop.UIForms.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string EmailOrPasswordIncorrect {
-            get {
-                return ResourceManager.GetString("EmailOrPasswordIncorrect", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Enter your Email.
         /// </summary>
         public static string EmailPlaceholder {

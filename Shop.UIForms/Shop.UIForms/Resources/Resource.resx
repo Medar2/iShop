@@ -150,7 +150,4 @@
   <data name="Rememberme" xml:space="preserve">
     <value>Rememberme in this device</value>
   </data>
-  <data name="EmailOrPasswordIncorrect" xml:space="preserve">
-    <value></value>
-  </data>
 </root>
