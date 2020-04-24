@@ -1,14 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Shop.Web.Data.Entities;
-using Shop.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Shop.Web.Helper
+﻿namespace Shop.Web.Helper
 {
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+    using Shop.Web.Data.Entities;
+    using Shop.Web.Models;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     public class UserHelper : IUserHelper
     {
         private readonly UserManager<User> userManager;

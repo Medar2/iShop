@@ -163,6 +163,25 @@ namespace Shop.Web.Controllers
             return this.View(model);
         }
 
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var user = await this.userHelper.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            await this.userHelper.DeleteUserAsync(user);
+            return this.RedirectToAction(nameof(Index));
+        }
+
+
+
         public async Task<IActionResult> ChangeUser()
         {
             var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);

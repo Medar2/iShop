@@ -43,6 +43,7 @@ namespace Shop.Web.Helper
         Task<IdentityResult> ResetPasswordAsync(User user, string token, string password);
 
 
+
     }
 
 }
