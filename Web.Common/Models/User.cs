@@ -8,7 +8,7 @@ namespace Shop.Common.Models
     public class User
     {
         [JsonProperty("firsName")]
-        public string FirsName { get; set; }
+        public string FirstName { get; set; }
 
         [JsonProperty("lastName")]
         public string LastName { get; set; }
@@ -41,7 +41,7 @@ namespace Shop.Common.Models
         public Guid ConcurrencyStamp { get; set; }
 
         [JsonProperty("phoneNumber")]
-        public object PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
 
         [JsonProperty("phoneNumberConfirmed")]
         public bool PhoneNumberConfirmed { get; set; }
@@ -57,5 +57,13 @@ namespace Shop.Common.Models
 
         [JsonProperty("accessFailedCount")]
         public long AccessFailedCount { get; set; }
+        [JsonProperty("cityId")]
+        public int CityId { get; set; }
+
+        [JsonProperty("address")]
+        public string Address { get; set; }
+
+        public string FullName { get { return $"{this.FirstName} {this.LastName}"; } }
+
     }
 }

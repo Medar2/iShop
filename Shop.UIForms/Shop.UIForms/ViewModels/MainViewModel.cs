@@ -13,11 +13,16 @@ namespace Shop.UIForms.ViewModels
     public class MainViewModel
     {
         //Singuenton??
-        private static MainViewModel instance;
-
+        
         public ObservableCollection<MenuItemViewModel> Menus { get; set; }
         public TokenResponse Token { get; set; }
         //Se registran todas la view models a usar
+
+        public ProfileViewModel Profile { get; set; }
+
+
+        public User User { get; set; }
+
 
         public string UserEmail { get; set; }
 
@@ -34,8 +39,8 @@ namespace Shop.UIForms.ViewModels
 
         public ICommand AddProductCommand => new RelayCommand(this.GoAddProduct);
 
-        
-        
+        private static MainViewModel instance;
+
 
 
         public MainViewModel()
@@ -63,8 +68,15 @@ namespace Shop.UIForms.ViewModels
         	        PageName = "AboutPage",
         	        Title = "About"
     	        },
+                new Menu
+                {
+                    Icon = "ic_person",
+                    PageName = "ProfilePage",
+                    Title = "Modify User"
+                },
 
-    	        new Menu
+
+                new Menu
     	        {
         	        Icon = "ic_phonelink_setup",
         	        PageName = "SetupPage",

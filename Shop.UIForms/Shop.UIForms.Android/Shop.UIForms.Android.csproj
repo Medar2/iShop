@@ -128,7 +128,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ic_action_chevron_right.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\ic_person.png" />
+  </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\xml\file_paths.xml" />
   </ItemGroup>
