@@ -24,6 +24,7 @@ namespace Shop.UIForms.ViewModels
         public string UserPassword { get; set; }
 
         public LoginViewModel Login { get; set; }
+        public RememberPasswordViewModel RememberPassword { get; set; }
         public ProductsViewModel Products { get; set; }
 
         public AddProductViewModel AddProduct { get; set; }
@@ -33,6 +34,7 @@ namespace Shop.UIForms.ViewModels
 
         public ICommand AddProductCommand => new RelayCommand(this.GoAddProduct);
 
+        
         
 
 

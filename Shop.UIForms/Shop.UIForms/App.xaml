@@ -8,11 +8,12 @@
              x:Class="Shop.UIForms.App">
     <Application.Resources>
         <ResourceDictionary>
-            <!--Locator-->
+            <!-- Locator -->
             <Infra:IntanceLocator x:Key="Locator"/>
             <!-- Parameters -->
-            <x:String x:Key="UrlAPI">https://devshop.azurewebsites.net</x:String>
-
+            <x:String x:Key="UrlAPI">
+                https://devshop.azurewebsites.net
+            </x:String>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

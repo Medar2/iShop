@@ -38,6 +38,7 @@
 		public static string Rememberme => Resource.Rememberme;
 
 		public static string RegisterNewUser => Resource.RegisterNewUser;
+		public static string Forgot => Resource.Forgot;
 
 		//public static string EmailOrPasswordIncorrect => Resource.EmailOrPasswordIncorrect;
 
