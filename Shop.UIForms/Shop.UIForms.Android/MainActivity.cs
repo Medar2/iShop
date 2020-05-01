@@ -13,9 +13,9 @@ namespace Shop.UIForms.Droid
 {
     [Activity(
         Label = "Shop.UIForms", 
-        Icon = "@mipmap/icon", 
+        Icon = "@mipmap/ic_launcher", 
         Theme = "@style/MainTheme", 
-        MainLauncher = true, 
+        MainLauncher = false, 
         ConfigurationChanges = 
         ConfigChanges.ScreenSize | 
         ConfigChanges.Orientation)]
