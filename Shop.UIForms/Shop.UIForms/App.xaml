@@ -12,7 +12,8 @@
             <Infra:IntanceLocator x:Key="Locator"/>
             <!-- Parameters -->
             <x:String x:Key="UrlAPI">
-                https://devshop.azurewebsites.net
+                <!--https://devshop.azurewebsites.net-->
+                https://testingappservices.azurewebsites.net/
             </x:String>
         </ResourceDictionary>
     </Application.Resources>
