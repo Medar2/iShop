@@ -161,13 +161,7 @@ namespace Shop.Common.Services
             }
         }
 
-        public async Task<Response> PostAsync<T>(
-                                string urlBase,
-                                string servicePrefix,
-                                string controller,
-                                T model,
-                                string tokenType,
-                                string accessToken)
+        public async Task<Response> PostAsync<T>(string urlBase,string servicePrefix,string controller,T model,string tokenType,string accessToken)
         {
             try
             {

@@ -1,4 +1,4 @@
-﻿namespace Shop.Web.Controllers.API
+﻿	namespace Shop.Web.Controllers.API
 {
 	using Data;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
