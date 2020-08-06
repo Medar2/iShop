@@ -13,7 +13,8 @@
             <!-- Parameters -->
             <x:String x:Key="UrlAPI">
                 <!--https://devshop.azurewebsites.net-->
-                https://testingappservices.azurewebsites.net/
+                <!--https://testingappservices.azurewebsites.net/-->
+                http://localhost:60622/
             </x:String>
         </ResourceDictionary>
     </Application.Resources>
