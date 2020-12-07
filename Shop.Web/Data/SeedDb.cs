@@ -32,7 +32,7 @@
             {
                 user = new User
                 {
-                    FirsName = "Jose",
+                    FirstName = "Jose",
                     LastName = "Caraballo",
                     Email = "jcaraballo74@hotmail.com",
                     UserName = "jcaraballo74@hotmail.com"
